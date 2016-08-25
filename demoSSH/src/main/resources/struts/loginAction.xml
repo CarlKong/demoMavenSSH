@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+    <package name="login" extends="basePackage" namespace="/login">
+        <!-- Find course/xxxx.jsp -->
+        <action name="login_*" class="loginAction">
+            <result name="success">/WEB-INF/success.jsp</result>
+        </action>
+
+        <action name="login" method="login" class="loginAction">
+            <result type="json" name="success">
+                <param name="root">jsonObject</param>
+            </result>
+        </action>
+
+        <action name="login1" method="login1" class="loginAction">
+            <result>/WEB-INF/success.jsp</result>
+        </action>
+    </package>
+</struts>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+      <constant name="struts.devMode" value="true" />
+      <constant name="struts.action.excludePattern" value="/rest/.*?" />
+      <constant name="struts.custom.i18n.resources" value="i18n/mess"></constant>
+      <constant name="struts.multipart.maxSize" value="100971520"/>
+  
+    <package name="basePackage" extends="json-default"  namespace="/" abstract="true">
+        <interceptors>
+            <interceptor name="exceptionInterceptor" class="com.demo.demoSSH.interceptor.ExceptionInterceptor"></interceptor>
+            <!-- <interceptor name="authorityInterceptor" class="com.augmentum.ot.interceptor.AuthorityInterceptor"></interceptor> -->
+            <interceptor-stack name="customDefaultStack">
+                <interceptor-ref name="defaultStack"></interceptor-ref>
+                <interceptor-ref name="exceptionInterceptor"></interceptor-ref>
+            </interceptor-stack>
+        </interceptors>
+        
+        <default-interceptor-ref name="customDefaultStack"></default-interceptor-ref>
+        
+        <default-action-ref name="resourceNotExisted" />
+        
+        <global-results>
+            <result name="error_page" type="chain">
+                <param name="actionName">handleError</param>
+                <param name="namespace">/error</param>
+            </result>
+            <result name="error_json" type="json">
+                <param name="root">jsonObject</param>
+            </result>
+        </global-results>
+        
+        <action name="resourceNotExisted">
+            <result>/WEB-INF/error/error404.jsp</result>
+        </action>
+    </package>
+
+</struts>
